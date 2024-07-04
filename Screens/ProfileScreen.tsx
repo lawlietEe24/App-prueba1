@@ -8,23 +8,19 @@ const Screen2 = () => {
   const [remindersList, setRemindersList] = useState([]);
 
   useEffect(() => {
-    // Cargar datos cuando el componente se monta
     loadReminders();
   }, []);
 
   const loadReminders = async () => {
     try {
-      // Obtener los recordatorios almacenados
       const reminders = await AsyncStorage.getItem('reminders');
       if (reminders) {
         const parsedReminders = JSON.parse(reminders);
 
-        // Obtener el primer registro de la lista (por ahora seleccionamos el primer registro)
         if (parsedReminders.length > 0) {
           setSingleReminder(parsedReminders[0]);
         }
 
-        // Crear una lista de registros con solo un campo específico (en este caso, 'name')
         const listData = parsedReminders.map((reminder) => ({ key: reminder.id, name: reminder.name }));
 
         setRemindersList(listData);
@@ -39,7 +35,6 @@ const Screen2 = () => {
   };
 
   const showDetailedInfo = (reminder) => {
-    // Mostrar alerta con más información del registro
     Alert.alert('Información Detallada', JSON.stringify(reminder, null, 2));
   };
 

@@ -9,13 +9,11 @@ const ReminderScreen = ({ navigation }) => {
   const [description, setDescription] = useState('');
 
   const handleAddReminder = async () => {
-    // Validar que todos los campos estén llenos antes de guardar
     if (!name || !date || !time || !description) {
       Alert.alert('Error', 'Por favor llene todos los campos.');
       return;
     }
 
-    // Crear el objeto de recordatorio
     const reminder = {
       id: Date.now().toString(), // ID único basado en la marca de tiempo actual
       name,
@@ -25,7 +23,6 @@ const ReminderScreen = ({ navigation }) => {
     };
 
     try {
-      // Obtener la lista actual de recordatorios almacenados
       const existingReminders = await AsyncStorage.getItem('reminders');
       let reminders = [];
 
@@ -33,22 +30,17 @@ const ReminderScreen = ({ navigation }) => {
         reminders = JSON.parse(existingReminders);
       }
 
-      // Agregar el nuevo recordatorio a la lista
       reminders.push(reminder);
 
-      // Guardar la lista actualizada de recordatorios
       await AsyncStorage.setItem('reminders', JSON.stringify(reminders));
 
-      // Mostrar mensaje de éxito
       Alert.alert('Éxito', 'El recordatorio se agregó correctamente.');
 
-      // Limpiar los campos después de agregar el recordatorio
       setName('');
       setDate('');
       setTime('');
       setDescription('');
 
-      // Opcional: navegar de vuelta a la pantalla anterior (WelcomeScreen)
       navigation.goBack();
     } catch (error) {
       console.error('Error al guardar el recordatorio:', error);

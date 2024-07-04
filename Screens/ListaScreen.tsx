@@ -13,7 +13,6 @@ const Screen4 = () => {
       const response = await fetch('https://jsonplaceholder.typicode.com/photos');
       const json = await response.json();
 
-      // Transformamos los datos para incluir nombres, artistas, libros simulados
       const transformedData = json.map((item, index) => ({
         id: item.id,
         title: `Imagen ${index + 1}`,
